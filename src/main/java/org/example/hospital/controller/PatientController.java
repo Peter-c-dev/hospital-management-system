@@ -16,6 +16,11 @@ public class PatientController {
     public List<Patient> getAllPatients() {
         return patientService.getAllPatients();
     }
+    @GetMapping("/search")
+    public List<Patient> searchPatients(
+            @RequestParam String name) {
+        return patientService.searchPatients(name);
+    }
     @PostMapping("/admit/{wardName}/{username}")
     public Patient admitPatient(
             @PathVariable String wardName,

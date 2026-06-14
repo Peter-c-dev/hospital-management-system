@@ -4,6 +4,8 @@ import org.example.hospital.model.User;
 import org.example.hospital.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import org.example.hospital.security.JwtService;
 

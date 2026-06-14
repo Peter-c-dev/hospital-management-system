@@ -21,7 +21,17 @@ public class DoctorService {
     public List<Doctor> getAllDoctors() {
         return doctorRepository.findAll();
     }
-
+    public List<Doctor> searchDoctors(String username) {
+        return doctorRepository
+                .findByUsernameContainingIgnoreCase(
+                        username);
+    }
+    public Doctor getDoctorById(Long id) {
+        return doctorRepository.findById(id)
+                .orElseThrow(() ->
+                        new IllegalArgumentException(
+                                "Doctor not found"));
+    }
     public Doctor login(String username, String password) {
 
         Doctor doctor = doctorRepository.findByUsername(username);

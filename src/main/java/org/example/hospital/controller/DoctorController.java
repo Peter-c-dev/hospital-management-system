@@ -26,6 +26,16 @@ public class DoctorController {
     public List<Doctor> getAllDoctors() {
         return doctorService.getAllDoctors();
     }
+    @GetMapping("/search")
+    public List<Doctor> searchDoctors(
+            @RequestParam String name) {
+        return doctorService.searchDoctors(name);
+    }
+    @GetMapping("/{id}")
+    public Doctor getDoctorById(
+            @PathVariable Long id) {
+        return doctorService.getDoctorById(id);
+    }
 
     @PostMapping("/login")
     public DoctorResponseDTO login(

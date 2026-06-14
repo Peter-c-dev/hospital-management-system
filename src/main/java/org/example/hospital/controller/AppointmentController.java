@@ -23,11 +23,16 @@ public class AppointmentController {
             @RequestBody AppointmentRequestDTO appointmentRequestDTO) {
         return appointmentService.createAppointment(appointmentRequestDTO);
     }
+
     @GetMapping
     public List<AppointmentResponseDTO> getAllAppointments() {
         return appointmentService.getAllAppointments();
-    }
-
+}
+@GetMapping("/{id}")
+public Appointment getAppointmentById(
+        @PathVariable Long id) {
+    return appointmentService.getAppointmentById(id);
+}
     @GetMapping("/doctor/{id}")
     public List<Appointment> getByDoctor(@PathVariable Long id) {
         return appointmentService.getAppointmentsByDoctor(id);
@@ -37,4 +42,6 @@ public class AppointmentController {
     public List<Appointment> getByPatient(@PathVariable Long id) {
         return appointmentService.getAppointmentsByPatient(id);
     }
+
 }
+

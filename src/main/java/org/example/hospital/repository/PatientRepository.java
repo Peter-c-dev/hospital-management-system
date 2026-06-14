@@ -3,5 +3,11 @@ package org.example.hospital.repository;
 import org.example.hospital.model.Patient;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface PatientRepository extends JpaRepository<Patient, Long> {
+import java.util.List;
+
+public interface PatientRepository
+        extends JpaRepository<Patient, Long> {
+
+    List<Patient> findByNameContainingIgnoreCase(
+            String name);
 }

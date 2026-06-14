@@ -27,6 +27,10 @@ public class PatientService {
     public List<Patient> getAllPatients() {
         return patientRepository.findAll();
     }
+    public List<Patient> searchPatients(String name) {
+        return patientRepository
+                .findByNameContainingIgnoreCase(name);
+    }
     public Patient admitPatient(
             Patient patient,
             String wardName,

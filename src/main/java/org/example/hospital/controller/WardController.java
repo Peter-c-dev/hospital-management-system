@@ -1,22 +1,47 @@
 package org.example.hospital.controller;
+
 import org.example.hospital.model.Ward;
-import org.example.hospital.repository.WardRepository;
+import org.example.hospital.service.WardService;
 import org.springframework.web.bind.annotation.*;
-import jakarta.validation.Valid;
+
 import java.util.List;
+
 @RestController
 @RequestMapping("/api/wards")
 public class WardController {
-    private final WardRepository wardRepository;
-    public WardController(WardRepository wardRepository) {
-        this.wardRepository = wardRepository;
+
+    private final WardService wardService;
+
+    public WardController(
+            WardService wardService
+    ) {
+        this.wardService = wardService;
     }
+
+    @PostMapping
+    public Ward createWard(
+            @RequestBody Ward ward
+    ) {
+        return wardService.saveWard(ward);
+    }
+
     @GetMapping
     public List<Ward> getAllWards() {
-        return wardRepository.findAll();
+        return wardService.getAllWards();
     }
-    @PostMapping
-    public Ward createWard(@Valid @RequestBody Ward ward) {
-        return wardRepository.save(ward);
+
+    @GetMapping("/search")
+    public List<Ward> searchWards(
+            @RequestParam String wardName) {
+        return wardService.searchWards(
+                wardName);
+    }
+
+
+    @GetMapping("/{id}")
+    public Ward getWardById(
+            @PathVariable Long id) {
+        return wardService.getWardById(id);
     }
 }
+
