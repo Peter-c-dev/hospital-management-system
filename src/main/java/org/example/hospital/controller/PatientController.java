@@ -5,6 +5,7 @@ import org.example.hospital.model.PatientStatus;
 import org.example.hospital.service.PatientService;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/api/patients")
 public class PatientController {
@@ -25,7 +26,7 @@ public class PatientController {
     public Patient admitPatient(
             @PathVariable String wardName,
             @PathVariable String username,
-            @RequestBody Patient patient) {
+            @Valid @RequestBody Patient patient) {
         return patientService.admitPatient(patient, wardName, username);
     }
     @PatchMapping("/{id}/transfer/{wardName}")
@@ -44,5 +45,10 @@ public class PatientController {
     public void dischargePatient(
             @PathVariable Long id) {
         patientService.dischargePatient(id);
+    }
+    @GetMapping("/{id}")
+    public Patient getPatientById(
+            @PathVariable Long id) {
+        return patientService.getPatientById(id);
     }
 }

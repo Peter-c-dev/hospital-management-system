@@ -24,13 +24,16 @@ public class PatientService {
         this.doctorRepository = doctorRepository;
 
     }
+
     public List<Patient> getAllPatients() {
         return patientRepository.findAll();
     }
+
     public List<Patient> searchPatients(String name) {
         return patientRepository
                 .findByNameContainingIgnoreCase(name);
     }
+
     public Patient admitPatient(
             Patient patient,
             String wardName,
@@ -44,7 +47,8 @@ public class PatientService {
         Doctor doctor = Optional
                 .ofNullable(doctorRepository.findByUsername(username))
                 .orElseThrow(() ->
-                        new RuntimeException("Doctor not found with username: " + username)
+                        new IllegalArgumentException(
+                                "Doctor not found with username: " + username)
                 );
 
         patient.setWard(ward);
@@ -53,6 +57,7 @@ public class PatientService {
 
         return patientRepository.save(patient);
     }
+
     public Patient transferPatient(Long patientId, String wardName) {
         Patient patient = patientRepository
                 .findById(patientId)
@@ -67,6 +72,7 @@ public class PatientService {
         patient.setWard(newWard);
         return patientRepository.save(patient);
     }
+
     public Patient updateStatus(Long id, PatientStatus status) {
         return patientRepository
                 .findById(id)
@@ -77,7 +83,15 @@ public class PatientService {
                 .orElseThrow(() -> new IllegalArgumentException(
                         "Patient not found"));
     }
+
     public void dischargePatient(Long id) {
         patientRepository.deleteById(id);
+    }
+
+    public Patient getPatientById(Long id) {
+        return patientRepository.findById(id)
+                .orElseThrow(() ->
+                        new IllegalArgumentException(
+                                "Patient not found"));
     }
 }
