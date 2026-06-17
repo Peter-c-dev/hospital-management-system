@@ -9,6 +9,7 @@ import org.example.hospital.repository.AppointmentRepository;
 import org.example.hospital.repository.DoctorRepository;
 import org.example.hospital.repository.PatientRepository;
 import org.springframework.stereotype.Service;
+import org.example.hospital.exception.AppointmentNotFoundException;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -79,7 +80,7 @@ public class AppointmentService {
     public Appointment getAppointmentById(Long id) {
         return appointmentRepository.findById(id)
                 .orElseThrow(() ->
-                        new IllegalArgumentException(
+                        new AppointmentNotFoundException(
                                 "Appointment not found"));
 
     }

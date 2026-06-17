@@ -5,6 +5,7 @@ import org.example.hospital.model.*;
 import org.example.hospital.repository.PatientRepository;
 import org.example.hospital.repository.WardRepository;
 import org.springframework.stereotype.Service;
+import org.example.hospital.exception.PatientNotFoundException;
 import java.util.List;
 import java.util.Optional;
 @Service
@@ -61,7 +62,7 @@ public class PatientService {
     public Patient transferPatient(Long patientId, String wardName) {
         Patient patient = patientRepository
                 .findById(patientId)
-                .orElseThrow(() -> new IllegalArgumentException(
+                .orElseThrow(() -> new PatientNotFoundException(
                         "Patient not found"));
         Ward newWard = wardRepository
                 .findByWardName(wardName);
@@ -80,7 +81,7 @@ public class PatientService {
                     patient.setStatus(status);
                     return patientRepository.save(patient);
                 })
-                .orElseThrow(() -> new IllegalArgumentException(
+                .orElseThrow(() -> new PatientNotFoundException(
                         "Patient not found"));
     }
 
@@ -91,7 +92,7 @@ public class PatientService {
     public Patient getPatientById(Long id) {
         return patientRepository.findById(id)
                 .orElseThrow(() ->
-                        new IllegalArgumentException(
+                        new PatientNotFoundException(
                                 "Patient not found"));
     }
 }

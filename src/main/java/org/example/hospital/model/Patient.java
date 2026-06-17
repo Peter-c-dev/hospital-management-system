@@ -14,21 +14,21 @@ public class Patient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
+    @NotBlank(message = "Patient name cannot be empty")
     @Column(nullable = false, length = 300)
     private String name;
 
-    @NotBlank
+    @NotBlank(message = "Diagnosis cannot be empty")
     @Column(nullable = false, length = 400)
     private String diagnosis;
 
-    @NotBlank
+    @NotBlank(message = "Allergies cannot be empty")
     @Column(nullable = false, length = 400)
     private String allergies;
 
-    @NotNull
-    @Min(0)
-    @Max(115)
+    @NotNull(message = "Age is required")
+    @Min(value = 0, message = "Age cannot be negative")
+    @Max(value = 115, message = "Age cannot exceed 115")
     private Integer age;
 
     @Enumerated(EnumType.STRING)

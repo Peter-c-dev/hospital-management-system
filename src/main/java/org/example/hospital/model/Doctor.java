@@ -6,7 +6,7 @@ import java.util.List;
 import lombok.*;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Getter
@@ -20,11 +20,11 @@ public class Doctor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
+    @NotBlank(message = "Username cannot be empty")
     @Column(nullable = false, length = 300)
     private String username;
 
-    @NotBlank
+    @NotBlank(message = "Password cannot be empty")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(nullable = false, length = 300)
     private String password;

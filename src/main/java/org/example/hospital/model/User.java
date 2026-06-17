@@ -16,15 +16,15 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
+    @NotBlank(message = "Username cannot be empty")
     @Column(nullable = false, length = 235)
     private String username;
 
-    @NotBlank
+    @NotBlank(message = "Password cannot be empty")
     @Column(nullable = false, length = 235)
     private String password;
 
-    @NotBlank
+    @NotBlank(message = "Role cannot be empty")
     private String role;
 
 }

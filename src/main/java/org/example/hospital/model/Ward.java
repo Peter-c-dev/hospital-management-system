@@ -16,15 +16,15 @@ public class Ward {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
+    @NotBlank(message = "Ward name cannot be empty")
     @Column(nullable = false, length = 300)
     private String wardName;
 
     @Enumerated(EnumType.STRING)
     private WardStatus wardState;
 
-    @NotNull
-    @Min(0)
+    @NotNull(message = "Capacity is required")
+    @Min(value = 0, message = "Capacity cannot be negative")
     private Integer capacity;
 
     private boolean wardOpen;

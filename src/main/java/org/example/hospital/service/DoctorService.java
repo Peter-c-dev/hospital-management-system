@@ -2,6 +2,7 @@ package org.example.hospital.service;
 import org.example.hospital.model.Doctor;
 import org.example.hospital.repository.DoctorRepository;
 import org.springframework.stereotype.Service;
+import org.example.hospital.exception.DoctorNotFoundException;
 
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class DoctorService {
     public Doctor getDoctorById(Long id) {
         return doctorRepository.findById(id)
                 .orElseThrow(() ->
-                        new IllegalArgumentException(
+                        new DoctorNotFoundException(
                                 "Doctor not found"));
     }
     public Doctor login(String username, String password) {

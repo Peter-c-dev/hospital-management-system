@@ -6,6 +6,8 @@ import org.example.hospital.dto.AppointmentRequestDTO;
 import org.example.hospital.dto.AppointmentResponseDTO;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.validation.Valid;
+
 import java.util.List;
 
 @RestController
@@ -20,7 +22,7 @@ public class AppointmentController {
 
     @PostMapping
     public AppointmentResponseDTO createAppointment(
-            @RequestBody AppointmentRequestDTO appointmentRequestDTO) {
+            @Valid @RequestBody AppointmentRequestDTO appointmentRequestDTO) {
         return appointmentService.createAppointment(appointmentRequestDTO);
     }
 
