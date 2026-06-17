@@ -37,6 +37,7 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.NOT_FOUND)
                 .body(ex.getMessage());
     }
+
     @ExceptionHandler(DoctorNotFoundException.class)
     public ResponseEntity<String> handleDoctorNotFoundException(
             DoctorNotFoundException ex) {
@@ -44,6 +45,7 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.NOT_FOUND)
                 .body(ex.getMessage());
     }
+
     @ExceptionHandler(AppointmentNotFoundException.class)
     public ResponseEntity<String> handleAppointmentNotFoundException(
             AppointmentNotFoundException ex) {
@@ -51,6 +53,7 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.NOT_FOUND)
                 .body(ex.getMessage());
     }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<String> handleMethodArgumentNotValidException(
             MethodArgumentNotValidException ex) {
@@ -61,6 +64,6 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.BAD_REQUEST)
                 .body(errorMessage);
     }
-
 }
+
 
