@@ -25,7 +25,13 @@ public class AppointmentController {
             @Valid @RequestBody AppointmentRequestDTO appointmentRequestDTO) {
         return appointmentService.createAppointment(appointmentRequestDTO);
     }
-
+    @PatchMapping("/{id}")
+    public AppointmentResponseDTO updateAppointment(
+            @PathVariable Long Id,
+            @Valid @RequestBody AppointmentRequestDTO appointmentRequestDTO) {
+        return appointmentService.updateAppointment(
+                Id, appointmentRequestDTO);
+    }
     @GetMapping
     public List<AppointmentResponseDTO> getAllAppointments() {
         return appointmentService.getAllAppointments();

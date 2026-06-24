@@ -42,6 +42,7 @@ public class AppointmentService {
 
     public AppointmentResponseDTO createAppointment(AppointmentRequestDTO appointmentRequestDTO) {
 
+
         Patient patient = patientRepository.findById(appointmentRequestDTO.getPatientId())
                 .orElseThrow(() -> new IllegalArgumentException("Patient not found"));
 
@@ -60,6 +61,24 @@ public class AppointmentService {
         Appointment savedAppointment = appointmentRepository.save(appointment);
 
         return convertToDTO(savedAppointment);
+    }
+    public AppointmentResponseDTO updateAppointment(
+            Long appointmentId,
+            AppointmentRequestDTO appointmentRequestDTO) {
+        Appointment appointment = appointmentRepository.findById(appointmentId)
+                .orElseThrow(() ->
+                        new AppointmentNotFoundException(
+                                "Appointment not found"));
+        Doctor doctor = doctorRepository.findById(
+                appointmentRequestDTO.getDoctorId())
+                .orElseThrow(() -> new IllegalArgumentException("Doctor not found"));
+        appointment.setDoctor(doctor);
+        appointment.setAppointmentTime(
+                LocalDateTime.parse(
+                        appointmentRequestDTO.getAppointmentTime()));
+                Appointment updatedAppointment = appointmentRepository.save(appointment);
+                return convertToDTO(updatedAppointment);
+
     }
 
     public List<AppointmentResponseDTO> getAllAppointments() {
