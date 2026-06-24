@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.Optional;
 import org.example.hospital.model.PatientStatus;
 import org.example.hospital.repository.DoctorRepository;
-
+import org.example.hospital.model.Ward;
 import static org.mockito.Mockito.*;
 
 public class PatientServiceTest {
@@ -117,6 +117,36 @@ public class PatientServiceTest {
                         doctorRepository);
         patientService.dischargePatient(1L);
         verify(patientRepository).deleteById(1L);
+    }
+    @Test
+    void shouldTransferPatientToNewWard() {
+        PatientRepository patientRepository = mock(PatientRepository.class);
+        WardRepository wardRepository = mock(WardRepository.class);
+        DoctorRepository doctorRepository = mock(DoctorRepository.class);
+
+        PatientService patientService =
+                new PatientService(
+                        patientRepository,
+                        wardRepository,
+                        doctorRepository);
+        Patient patient = new Patient();
+
+        Ward newWard = new Ward();
+        newWard.setWardName("A&E");
+
+        when(patientRepository.findById(1L))
+                .thenReturn(Optional.of(patient));
+        when(wardRepository.findByWardName("A&E"))
+                .thenReturn(newWard);
+        when(patientRepository.save(any(Patient.class)))
+                .thenAnswer(invocation -> invocation.getArgument(0));
+        Patient transferredPatient =
+                patientService.transferPatient(
+                        1L,
+                        "A&E");
+        assertEquals(
+                newWard,
+                transferredPatient.getWard());
     }
 }
 
